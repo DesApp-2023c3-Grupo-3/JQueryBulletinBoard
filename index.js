@@ -1,8 +1,7 @@
 // import { sendMessage } from "./modules/webSocketConnection.js";
 import { getUrlParameter } from "./modules/utils.js";
-// import ./modules/utils.js;
 
-var buildingName = 'Malvinas Argentinas'
+// const buildingName = 'Malvinas Argentinas'
 let SCREEN_ID = getUrlParameter('id')
 
 function loadTemplate() {
@@ -20,7 +19,6 @@ function loadTemplate() {
             templateName = 'video'
             break
     }
-    //alert('./templates/' + templateName + '.html' + SCREEN_ID,)
     $('#main').load('./templates/' + templateName + '.html')
 }
 
@@ -43,8 +41,7 @@ const main = () => {
         sendMessage(SCREEN_ID, initializeConnection)
     } catch (error) {
         // console.error(`There was an unexpected error:`, error)
-        // failedInitializationFallback()
-        //$('#main').load('./templates/' + templateName + '.html')
+        failedInitializationFallback()
     }
 }
 
