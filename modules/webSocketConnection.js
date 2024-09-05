@@ -1,30 +1,22 @@
-const url = 'ws://localhost:1234/messaging';
-const webSocket = new WebSocket(url);
-// const screenId = '1';
+import env from './env.js'
 
-webSocket.addEventListener('open', (screenId) => {
-    console.info(`WebSocket Connected ${url}`);
-    webSocket.send(
-        JSON.stringify({
-            screenId,
-            message: 'Hi! This is a client',
-        }),
-    );
-});
+const url = `ws://${env.SERVER_HOST}:${env.SERVER_PORT}/messaging`;
+let webSocket = null;
 
-webSocket.addEventListener('message', (message) => {
-    console.log('addEventListener.message')
-    const { data } = JSON.parse(message.data);
-    $("#advertisings").append(`<p>${JSON.stringify(data.action)}</p>`)
-    $("#advertisings").append(`<p>${JSON.stringify(data.data)}</p>`)
-});
+const connection = {
+    onOpen: (screenId) => console.info(`WebSocket Connected ${screenId}`),
+    onMessage: (message) => console.info(`New message: ${message}`),
+    onError: (error) => console.error(`ERROR: ${error}`)
+}
 
-webSocket.addEventListener('error', (error) => {
-    console.error(`ERROR: ${error}`);
-});
+function initilizeConnection() {
+    webSocket = new WebSocket(url);
+    webSocket.addEventListener('open', connection.onOpen);
+    webSocket.addEventListener('message', connection.onMessage);
+    webSocket.addEventListener('error', connection.onError);
+}
 
 const sendMessage = (message, screenId) => {
-    console.log('sendMessage')
     webSocket.send(
         JSON.stringify({
             screenId,
@@ -33,4 +25,4 @@ const sendMessage = (message, screenId) => {
     );
 }
 
-export { sendMessage };
+export { connection, initilizeConnection, sendMessage };
