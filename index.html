@@ -7,24 +7,29 @@
         <title>Cartelera UNAHUR</title>
         <!-- POLYFILLS SECTION -->
         
-        <!-- Include Promise polyfill -->
+        <!-- Include Promise polyfill
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill/dist/polyfill.min.js"></script>
         
-        <!-- Include fetch polyfill -->
+        Include fetch polyfill
         <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.1/dist/fetch.umd.min.js"></script>
         
-        <!-- Include Object.assign polyfill -->
+        Include Object.assign polyfill
         <script src="https://cdn.jsdelivr.net/npm/es6-object-assign/dist/object-assign-auto.min.js"></script>
         
-        <!-- Include Array.includes polyfill -->
+        Include Array.includes polyfill
         <script src="https://cdn.jsdelivr.net/npm/array-includes-polyfill/index.js"></script>
         
-        <!-- END POLYFILLS SECTION -->
+        END POLYFILLS SECTION
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+         -->
+        <script src="modules/jquery.min.js"></script>
         <script src="dist/bundle.js"></script>
     </head>
-    <body id="main">
-        <button id="getAdvertisings">Click Me</button>
-        <div id="advertisings"></div>
+    <body>
+        <div>
+            <h2>Cartelera UNAHUR</h2>
+            <span id="loader"></span>
+        </div>
+        <div id="main"></div>
     </body>
 </html>
