@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "nodemon --exec 'npm run build && npm start'",
-    "start": "npx serve",
+    "start": "npx serve ./dist",
     "build": "npx webpack",
     "deploy": "gh-pages -d dist"
   },
