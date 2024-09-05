@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "nodemon --exec 'npm run build && npm start'",
     "start": "npx serve",
-    "build": "npx webpack"
+    "build": "npx webpack",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
