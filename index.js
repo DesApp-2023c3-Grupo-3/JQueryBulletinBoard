@@ -1,11 +1,52 @@
-import "./webSocketConnection.js";
+// import { sendMessage } from "./modules/webSocketConnection.js";
+import { getUrlParameter } from "./modules/utils.js";
+// import ./modules/utils.js;
 
-const main = () => {
-    $("#getAdvertisings").click(() => {
-    });
+var buildingName = 'Malvinas Argentinas'
+let SCREEN_ID = getUrlParameter('id')
+
+function loadTemplate() {
+    let templateName = 'default'
+    SCREEN_ID = getUrlParameter('id')
+    
+    switch (SCREEN_ID) {
+        case '1':
+            templateName = 'default'
+            break
+        case '2':
+            templateName = 'full-screen'
+            break
+        case '3':
+            templateName = 'video'
+            break
+    }
+    //alert('./templates/' + templateName + '.html' + SCREEN_ID,)
+    $('#main').load('./templates/' + templateName + '.html')
 }
 
+// function initializeConnection() {
+//     document.title = `Cartelera UNAHUR - ${buildingName}`
+
+//     loadTemplate()
+
+//     $("#getAdvertisings").click(() => {
+//         alert('GET ADVERTISINGS')
+//     });
+// }
+
+function failedInitializationFallback() {
+    loadTemplate()
+}
+
+const main = () => {
+    try {
+        sendMessage(SCREEN_ID, initializeConnection)
+    } catch (error) {
+        // console.error(`There was an unexpected error:`, error)
+        // failedInitializationFallback()
+        //$('#main').load('./templates/' + templateName + '.html')
+    }
+}
+
+// failedInitializationFallback()
 $(document).ready(main);
-
-console.log('Saliendo aca')
-
