@@ -1,4 +1,6 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './index.js',
@@ -9,6 +11,14 @@ module.exports = {
       arrowFunction: false, // Disable arrow functions
     },
   },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "templates", to: "templates" }
+      ],
+    }),
+    new HtmlWebpackPlugin()
+  ],
   module: {
     rules: [
       {
