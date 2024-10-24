@@ -1,6 +1,7 @@
 import env from './env.js'
-
+//advertising/screen/1
 const url = `ws://${env.SERVER_HOST}:${env.SERVER_PORT}/messaging`;
+// const url = `ws://${env.SERVER_HOST}:${env.SERVER_PORT}/advertising/screen/1`;
 let webSocket = null;
 
 const connection = {

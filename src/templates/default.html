@@ -1,27 +1,42 @@
-<main>
-  <aside>
-    <article>
-      <figure>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfe6jcAl-caOpYsxMmeoN-cAkL-QuqQ_q_VA&s" alt="">
-      </figure>
+<main class="default-template flex gap-2 w-screen h-screen">
+  <aside class="flex flex-col w-25 p-2 gap-2">
+    <article class="flex h-full bg-white grow rounded-lg">
+      <div id="carousel-1" class="h-full w-full">
+        <div class="carousel-items"></div>
+      </div>
     </article>
-    <article>
-      <figure>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfe6jcAl-caOpYsxMmeoN-cAkL-QuqQ_q_VA&s" alt="">
-      </figure>
+    <article class="flex h-full bg-white grow rounded-lg">
+      <div id="carousel-2" class="h-full w-full">
+        <div class="carousel-items"></div>
+      </div>
     </article>
   </aside>
-  <section>
-    <header>
-      <h5>UNAHUR</h5>
-      <h5>12:45</h5>
-      <h5 id="sector_name"></h5>
+  <section class="flex w-75 flex-col grow p-2">
+    <header class="flex w-full items-center justify-between">
+      <img src="public/UNAHUR.png" alt="">
+      <h5 class="sector" id="sector_name"></h5>
+      <h5 id="time" class="time text-white">--:--</h5>
     </header>
-    <article>
+    <article class="flex flex-col h-fit mt-4">
       <span id="advertisings"></span>
+      <div id="carousel-courses-table">
+        <div class="carousel-items"></div>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2.5 mt-4 dark:bg-gray-700">
+        <div class="h-2.5 rounded-full progress-bar"></div>
+      </div>
     </article>
-    <footer>
-
-    </footer>
+    <div class="flex mt-auto">
+      <article class="flex items-center justify-center w-50">
+        <h2 class="font-bold text-4xl opacity-75">¿Estás perdido/a?</h2>
+      </article>
+      <article class="flex items-center bg-green justify-between w-50 rounded-lg p-2">
+        <h6 class="font-bold text-xl text-white ps-6">Escanea el código y recorre los espacios de la Universidad.</h6>
+        <div class="flex h-fit w-fit bg-white p-1 rounded-lg">
+          <img class="flex aspect-square w-36 h-fit" src="http://186.13.152.219:4000/image/qr/plane/view" alt="Mapa" srcset="">
+        </div>
+      </article>
+    </div>
+    <footer></footer>
   </section>
 </main>
