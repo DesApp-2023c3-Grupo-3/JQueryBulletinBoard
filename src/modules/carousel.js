@@ -13,7 +13,6 @@ export const initializeCarousel = function ($, id, data, type) {
 
     const $carouselItem = $(`#carousel-${id} .carousel-item`);
     const totalItems = $carouselItem.length;
-    // const intervalTime = data.durationTime || 1000;
     let autoPlayInterval;
 
     function goToSlide(index) {
@@ -44,7 +43,7 @@ export const initializeCarousel = function ($, id, data, type) {
     }
 
     function startAutoplay() {
-      const intervalTime = Number(data.items.at(currentIndex).duration || 1) * 1000
+      const intervalTime = Number(data.items.at(currentIndex)?.duration || 1) * 1000
       autoPlayInterval = setInterval(nextSlide, intervalTime);
     }
 

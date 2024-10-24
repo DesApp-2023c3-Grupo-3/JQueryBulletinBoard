@@ -1,39 +1,21 @@
 const schedulesMock = [
   {
-    subjectName: 'Matematicas I',
-    comissionName: 'MAT-C1',
-    classroomId: '206',
-    startDate: '13:00'
-  },
-  {
-    subjectName: 'Matematicas I',
-    comissionName: 'MAT-C1',
-    classroomId: '206',
-    startDate: '13:00'
-  },
-  {
-    subjectName: 'Matematicas I',
-    comissionName: 'MAT-C1',
-    classroomId: '206',
-    startDate: '13:00'
-  },
-  {
-    subjectName: 'Matematicas I',
-    comissionName: 'MAT-C1',
-    classroomId: '206',
-    startDate: '13:00'
-  },
-  {
-    subjectName: 'Matematicas I',
-    comissionName: 'MAT-C1',
-    classroomId: '206',
-    startDate: '13:00'
-  },
-  {
-    subjectName: 'Matematicas I',
-    comissionName: 'MAT-C1',
-    classroomId: '206',
-    startDate: '13:00'
+    id: '1',
+    name: 'Matematicas I',
+    payload: '<p><strong>Prueba de concepto</strong></p>',
+    advertisingType: {
+        name: 'Texxt'
+    },
+    subject: {
+        name: 'MAT-C1'
+    },
+    classroom: {
+        name: '207'
+    },
+    schedule: {
+        startDate: '2023-10-06T18:00:00.000Z',
+        endDate: '2023-10-06T21:00:00.000Z',
+    },
   },
 ]
 

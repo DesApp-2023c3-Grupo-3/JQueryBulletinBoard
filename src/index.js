@@ -11,10 +11,10 @@ let advertisingData = []
 let coursesData = []
 
 function contentFromAdvertising(anAdvertising) {
-	switch (anAdvertising.advertisingType.name) {
+	switch (anAdvertising?.advertisingType?.name) {
 		case 'Text':
 			return {
-				html: anAdvertising.payload
+				html: `<div class="flex items-center justify-center w-full h-full">${anAdvertising.payload}</div>`
 			}
 		case 'Video':
 			return {
@@ -25,6 +25,8 @@ function contentFromAdvertising(anAdvertising) {
 			return {
 				html: `<img class="flex aspect-square w-full" src="${anAdvertising.payload}" alt="${anAdvertising.name}" srcset="">`
 			}
+		default:
+			return 'Unknown type'
 	}
 }
 
@@ -54,17 +56,17 @@ function loadTemplate() {
 
 		initializeCarousel($, 1, {
 			items: [...advertisingsA].map(anAdvertising => ({
-				content: `<div class='carousel-item'>${contentFromAdvertising(anAdvertising).html}</div>`,
-				video: contentFromAdvertising(anAdvertising).videoId,
-				duration: anAdvertising.advertisingSectors.at(0).sector.screens.at(0).advertisingIntervalTime
+				content: `<div class='carousel-item'>${contentFromAdvertising(anAdvertising)?.html}</div>`,
+				video: contentFromAdvertising(anAdvertising)?.videoId,
+				duration: anAdvertising?.advertisingSectors ? anAdvertising.advertisingSectors.at(0).sector.screens.at(0).advertisingIntervalTime : 5
 			})
       ),
 		})
 		initializeCarousel($, 2, {
 			items: [...advertisingsB].map(anAdvertising => ({
-				content: `<div class='carousel-item'>${contentFromAdvertising(anAdvertising).html}</div>`,
-				video: contentFromAdvertising(anAdvertising).videoId,
-				duration: anAdvertising.advertisingSectors.at(0).sector.screens.at(0).advertisingIntervalTime
+				content: `<div class='carousel-item'>${contentFromAdvertising(anAdvertising)?.html}</div>`,
+				video: contentFromAdvertising(anAdvertising)?.videoId,
+				duration: anAdvertising?.advertisingSectors ? anAdvertising.advertisingSectors.at(0).sector.screens.at(0).advertisingIntervalTime : 5
 			})
       ),
 		})
@@ -75,7 +77,6 @@ function loadTemplate() {
 				coursesPages.push(chunk)
 		}
 		initializeCarousel($, 'courses-table', {
-			durationTime: 5000,
 			items: coursesPages.map((aPage, index) => ({
 				content: `<table key="${index}" class="carousel-item tabla-comisiones">
 					<thead>
@@ -98,7 +99,8 @@ function loadTemplate() {
 							).join('')
 						}
 					</tbody>
-				</table>`
+				</table>`,
+				duration: 5
 			})
       ),
 		}, 'table')
