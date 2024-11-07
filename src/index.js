@@ -3,6 +3,7 @@ import { formattedTime, getCurrentTime, getUrlParameter, fetch, getYouTubeVideoI
 import { initializeCarousel } from "./modules/carousel.js"
 import { coursesMock, schedulesMock } from "./mock/mock.js";
 
+const HOSTNAME = 'http://186.13.152.219:4000'
 const ADVERTISINGS_ENDPOINT = 'http://186.13.152.219:4000/advertising/screen'
 const COURSES_ENDPOINT = 'http://186.13.152.219:4000/course/sector'
 const SCREEN_ID = getUrlParameter('id')
@@ -48,6 +49,7 @@ function loadTemplate() {
 
 	$('#main').load('./templates/' + templateName + '.html', () => {
 		$('#sector_name').text(`${sectorData?.sector?.name || 'No conectado'}`)
+		$("#mapa").attr("src",`${HOSTNAME}/image/qr/plane/view`);
 		setInterval(() => renderTime(), 1000);
 
 		const middleIndex = Math.floor(advertisingData.length / 2);
@@ -128,6 +130,10 @@ function onConnectionInitialized(response) {
 
 function onMessage(message) {
 	const { data } = JSON.parse(message.data);
+
+	console.log('ON MESSAGE:')
+	console.log(message)
+	console.log(data)
 
 	switch (data?.action) {
 		case 'START_CONNECTION':
