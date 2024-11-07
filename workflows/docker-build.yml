@@ -35,7 +35,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: valentinochiappanni07/backend:${{ env.tag }}
+          tags: valentinochiappanni07/microFront:${{ env.tag }}
 
       - name: Logout de Docker Hub
         run: docker logout
