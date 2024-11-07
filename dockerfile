@@ -9,5 +9,4 @@ COPY . .
 
 RUN npm run build
 
-# Inicia la aplicación
 CMD ["npm", "run", "start"]
