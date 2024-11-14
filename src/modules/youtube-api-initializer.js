@@ -5,28 +5,24 @@ const firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 export function onYouTubeIframeAPIReady(playerId, videoId) {
-  new YT.Player(playerId, {
+  const player = new YT.Player(playerId, {
     videoId: videoId,
     playerVars: {
       'autoplay': 1,  // 1 for autoplay
       'controls': 0,  // Show controls
-      'mute': 1       // Mute the video for autoplay to work
+      'mute': 1,      // Mute the video for autoplay to work
+      'bucle': 1
     },
     events: {
       onReady: onPlayerReady,
-      onStateChange: onPlayerStateChange
+      onStateChange: (e) => onPlayerStateChange(e, player),
     }
   });
 }
 
-function onPlayerReady(event) {
-  setTimeout(() => {
-    event.target.playVideo();
-  }, 2000);
-}
 
-function onPlayerStateChange(event) {        
-  if(event.data === 0) {          
-      alert('done');
+function onPlayerStateChange(event, player) {
+  if (event.data === YT.PlayerState.ENDED) {
+    player.playVideo(); 
   }
 }
