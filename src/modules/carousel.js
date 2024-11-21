@@ -6,10 +6,14 @@ export const initializeCarousel = function ($, id, data, type) {
     
     $(`#carousel-${id} .carousel-items`).html('');
 
+    function callbacker(){
+      nextSlide()
+    }
+
     (data.items || []).forEach(anItem => {
       $(`#carousel-${id} .carousel-items`).append(anItem.content);
       if (anItem.video) {
-        onYouTubeIframeAPIReady(anItem.video, anItem.video)
+        anItem.player = onYouTubeIframeAPIReady(anItem.video, anItem.video, callbacker)
       }
     });
 
@@ -37,7 +41,15 @@ export const initializeCarousel = function ($, id, data, type) {
     }
 
     function nextSlide() {
+      if (data.items[currentIndex]?.video) {
+        data.items[currentIndex]?.player.seekTo(0)
+        data.items[currentIndex]?.player.pauseVideo()
+      }
       goToSlide(currentIndex + 1);
+      if (data.items[currentIndex]?.video) {
+        data.items[currentIndex]?.player.seekTo(0)
+        data.items[currentIndex]?.player.playVideo()
+      }
     }
 
     function prevSlide() {
@@ -46,6 +58,12 @@ export const initializeCarousel = function ($, id, data, type) {
 
     function startAutoplay() {
       const intervalTime = Number(data.items[currentIndex]?.duration || 1) * 1000
+      
+      if (data.items[currentIndex]?.video) {
+        stopAutoplay()
+        return
+      }
+      
       autoPlayInterval = setInterval(nextSlide, intervalTime);
     }
 
@@ -104,11 +122,12 @@ export const updateCarousel = function ($, id, data, type) {
 function updateAutoplayInterval($, id, data) {
   const $carouselContainer = $(`#carousel-${id} .carousel-items`);
   let currentIndex = 0;
+  const autoPlayInterval = null
 
   function startAutoplay() {
     clearInterval($carouselContainer.data('autoPlayInterval'));
     const intervalTime = Number(data.items[currentIndex]?.duration || 1) * 1000;
-    const autoPlayInterval = setInterval(() => {
+    autoPlayInterval = setInterval(() => {
       currentIndex = (currentIndex + 1) % data.items.length;
       goToSlide($, id, currentIndex, data.items.length, data.type);
     }, intervalTime);

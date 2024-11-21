@@ -1,6 +1,7 @@
-import { connection, initilizeConnection, sendMessage } from "./modules/webSocketConnection.js";
+import { connection, initilizeConnection, finalizeConnection, sendMessage } from "./modules/webSocketConnection.js";
 import { formattedTime, getCurrentTime, getUrlParameter, fetch, getYouTubeVideoId } from "./modules/utils.js";
 import { initializeCarousel, updateCarousel, removeCarouselItem } from "./modules/carousel.js"
+import { coursesMock, advertisingsMock } from "./mock/mock.js";
 
 const HOSTNAME = 'http://186.13.152.219:4000'
 const ADVERTISINGS_ENDPOINT = 'http://186.13.152.219:4000/advertising/screen'
@@ -23,34 +24,73 @@ function contentFromAdvertising(anAdvertising) {
 			}
 		case 1:
 			return {
-				html: `<img class="flex aspect-square w-full" src="${anAdvertising.payload}" alt="${anAdvertising.name}" srcset="">`
+				html: `<img class="flex h-full w-full" src="${anAdvertising.payload}" alt="${anAdvertising.name}" srcset="">`
 			}
 		default:
 			return 'Unknown type'
 	}
 }
 
-function regenerateAdvertisings() {
-	const middleIndex = Math.floor(advertisingData.length / 2);
-	const advertisingsA = advertisingData.slice(0, middleIndex);
-	const advertisingsB = advertisingData.slice(middleIndex);
+const subdivisions = (data, numDivisions) => {
+  const chunkSize = Math.ceil(data.length / numDivisions);
+  return Array.from({ length: numDivisions }, (_, i) =>
+    data.slice(i * chunkSize, (i + 1) * chunkSize)
+  );
+};
 
-	initializeCarousel($, 1, {
-		items: [...advertisingsA].map(anAdvertising => ({
-			content: `<div class='carousel-item'>${contentFromAdvertising(anAdvertising)?.html}</div>`,
-			video: contentFromAdvertising(anAdvertising)?.videoId,
-			duration: anAdvertising?.advertisingSectors ? anAdvertising.advertisingSectors[0].sector.screens[0].advertisingIntervalTime : 5
+function divisionsPerTemplate() {
+	switch (sectorData?.screen?.templeteId || '3') {
+		case '1':
+			return 2
+		case '2':
+			return 3
+		default:
+			return 1
+	}
+}
+
+function regenerateAdvertisings() {
+	const divisions = divisionsPerTemplate()
+
+	let advertisingDataToDisplay = advertisingData
+	if (sectorData?.screen?.templeteId === '3') {
+		advertisingDataToDisplay = advertisingData.filter(anAdvertising => {
+			const idType = anAdvertising?.advertisingTypeId || anAdvertising?.advertisingType?.id
+			return idType === 2
 		})
-		),
-	})
-	initializeCarousel($, 2, {
-		items: [...advertisingsB].map(anAdvertising => ({
-			content: `<div class='carousel-item'>${contentFromAdvertising(anAdvertising)?.html}</div>`,
-			video: contentFromAdvertising(anAdvertising)?.videoId,
-			duration: anAdvertising?.advertisingSectors ? anAdvertising.advertisingSectors[0].sector.screens[0].advertisingIntervalTime : 5
+	}
+
+	let advertisingSubdivisions = subdivisions(advertisingDataToDisplay, divisions);
+
+
+	advertisingSubdivisions
+		.filter(advertisingsList => advertisingsList.length)
+		.forEach((advertisingsList, index) => {
+			initializeCarousel($, index + 1, {
+				items: [...advertisingsList].map(anAdvertising => {
+					const contentGenerated = contentFromAdvertising(anAdvertising)
+
+					return {
+						content: `<div class='carousel-item'>${contentGenerated?.html}</div>`,
+						video: contentGenerated?.videoId,
+						duration: anAdvertising?.advertisingSectors[0]?.sector?.screens[0]?.advertisingIntervalTime || 5
+					}
+				}),
+			})
 		})
-		),
-	})
+
+	// for (const advertisingsList of advertisingSubdivisions) {
+	// 	const contentGenerated = contentFromAdvertising(anAdvertising)?.videoId
+	
+
+	// 	initializeCarousel($, index + 1, {
+	// 		items: [...advertisingsList].map(anAdvertising => ({
+	// 			content: `<div class='carousel-item'>${contentGenerated?.html}</div>`,
+	// 			video: contentGenerated?.videoId,
+	// 			duration: anAdvertising?.advertisingSectors[0]?.sector?.screens[0]?.advertisingIntervalTime || 5
+	// 		})),
+	// 	})
+	// }
 }
 
 function regenerateCoursesTable(){
@@ -93,12 +133,12 @@ function regenerateCoursesTable(){
 
 function loadTemplate() {
 	let templateName = 'default'
-	switch (sectorData?.screen?.templeteId || '1') {
+	switch (sectorData?.screen?.templeteId || '3') {
 		case '1':
 			templateName = 'default'
 			break
 		case '2':
-			templateName = 'full-screen'
+			templateName = 'advertisings'
 			break
 		case '3':
 			templateName = 'video'
@@ -112,9 +152,23 @@ function loadTemplate() {
 		$("#mapa").attr("src",`${HOSTNAME}/image/qr/plane/view`);
 		setInterval(() => renderTime(), 1000);
 
+		switch (sectorData?.screen?.templeteId || '1') {
+			case '1':
+				loadDefaultTemplate()
+				break
+			case '2':
+				loadDefaultTemplate()
+				break
+			case '3':
+				loadDefaultTemplate()
+				break
+		}
+	})
+}
+
+function loadDefaultTemplate() {
 		regenerateAdvertisings()
 		regenerateCoursesTable()
-	})
 }
 
 async function retrieveInitialData() {
@@ -124,7 +178,7 @@ async function retrieveInitialData() {
 		
 		const coursesResponse = await fetch(`${COURSES_ENDPOINT}/${sectorData?.sector?.id}`)
 		coursesData = coursesResponse
-
+		
 		loadTemplate()
 	} catch (error) {
 		console.error(error)
@@ -145,8 +199,6 @@ function onMessage(message) {
 		${data}
 	`)
 
-	const carouselIdByIndex = (index) => index % 2 === 0 ? 2 : 1
-	let advertisingId = 0
 	sectorData = data?.data
 
 	switch (data?.action) {
@@ -190,11 +242,11 @@ function onMessage(message) {
 			break
 		case 'UPDATE_SCREEN_CONFIGURATION':
 			// Se actualiza la configuracion de pantalla
-			retrieveInitialData()
+			initilizeConnection()
 			break
 		case 'SCREEN_REMOTE_DISCONNECT':
 			// Se desconecta la pantalla
-			// TODO
+			finalizeConnection()
 			$('#sector_name').text('Has sido desconectado')
 			break
 	}
@@ -209,6 +261,7 @@ const main = async () => {
 		connection.onMessage = onMessage
 		connection.onError = onError
 		initilizeConnection()
+		// retrieveInitialData()
 	} catch (error) {
 		console.error(JSON.stringify(error))
 		$("#loader").text(`Error: ${JSON.stringify(error)}`)

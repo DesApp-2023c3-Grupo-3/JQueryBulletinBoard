@@ -4,7 +4,7 @@ tag.src = "https://www.youtube.com/iframe_api";
 const firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-export function onYouTubeIframeAPIReady(playerId, videoId) {
+export function onYouTubeIframeAPIReady(playerId, videoId, callback) {
   const player = new YT.Player(playerId, {
     videoId: videoId,
     playerVars: {
@@ -14,15 +14,19 @@ export function onYouTubeIframeAPIReady(playerId, videoId) {
       'bucle': 1
     },
     events: {
-      onReady: onPlayerReady,
-      onStateChange: (e) => onPlayerStateChange(e, player),
+      onStateChange: (e) => onPlayerStateChange(e, player, callback)
     }
   });
+  return player
 }
 
-
-function onPlayerStateChange(event, player) {
+function onPlayerStateChange(event, player, callback) {
+  // Check if the video has ended
   if (event.data === YT.PlayerState.ENDED) {
-    player.playVideo(); 
+    // Pause the video and seek to the beginning
+    player.seekTo(0);
+
+    // Call the callback to switch to the next slide in the carousel
+    callback();
   }
 }
