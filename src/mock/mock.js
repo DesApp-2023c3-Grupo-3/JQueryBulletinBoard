@@ -1,23 +1,500 @@
-const schedulesMock = [
-  {
-    id: '1',
-    name: 'Matematicas I',
-    payload: '<p><strong>Prueba de concepto</strong></p>',
-    advertisingType: {
-        name: 'Texxt'
+const advertisingsMock = [
+    {
+      "id": 1,
+      "name": "Prueba",
+      "payload": "<p>hola</p>",
+      "createdAt": "2024-10-13T23:12:07.004Z",
+      "updatedAt": "2024-10-13T23:12:07.004Z",
+      "deletedAt": null,
+      "advertisingType": {
+        "id": 3,
+        "name": "Text",
+        "createdAt": "2024-10-13T23:00:34.130Z",
+        "updatedAt": "2024-10-13T23:00:34.130Z",
+        "deletedAt": null
+      },
+      "advertisingSectors": [
+        {
+          "id": 1,
+          "createdAt": "2024-10-13T23:12:07.029Z",
+          "updatedAt": "2024-10-13T23:12:07.029Z",
+          "deletedAt": null,
+          "sector": {
+            "id": 1,
+            "name": "Malvinas Argentinas",
+            "topic": "ma",
+            "createdAt": "2024-10-13T23:00:34.153Z",
+            "updatedAt": "2024-10-13T23:00:34.153Z",
+            "deletedAt": null,
+            "screens": [
+              {
+                "id": 1,
+                "subscription": "1",
+                "templeteId": "1",
+                "courseIntervalTime": 2,
+                "advertisingIntervalTime": 2,
+                "createdAt": "2024-10-13T23:17:28.757Z",
+                "updatedAt": "2024-10-13T23:17:28.757Z",
+                "deletedAt": null
+              }
+            ]
+          }
+        }
+      ],
+      "advertisingSchedules": [
+        {
+          "id": 1,
+          "createdAt": "2024-10-13T23:12:07.141Z",
+          "updatedAt": "2024-10-13T23:12:07.141Z",
+          "deletedAt": null,
+          "schedule": {
+            "id": 1,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "LU",
+            "createdAt": "2024-10-13T23:12:07.102Z",
+            "updatedAt": "2024-10-13T23:12:07.102Z",
+            "deletedAt": null
+          }
+        },
+        {
+          "id": 2,
+          "createdAt": "2024-10-13T23:12:07.142Z",
+          "updatedAt": "2024-10-13T23:12:07.142Z",
+          "deletedAt": null,
+          "schedule": {
+            "id": 2,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "MA",
+            "createdAt": "2024-10-13T23:12:07.102Z",
+            "updatedAt": "2024-10-13T23:12:07.102Z",
+            "deletedAt": null
+          }
+        },
+        {
+          "id": 3,
+          "createdAt": "2024-10-13T23:12:07.143Z",
+          "updatedAt": "2024-10-13T23:12:07.143Z",
+          "deletedAt": null,
+          "schedule": {
+            "id": 3,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "MI",
+            "createdAt": "2024-10-13T23:12:07.102Z",
+            "updatedAt": "2024-10-13T23:12:07.102Z",
+            "deletedAt": null
+          }
+        },
+        {
+          "id": 4,
+          "createdAt": "2024-10-13T23:12:07.143Z",
+          "updatedAt": "2024-10-13T23:12:07.143Z",
+          "deletedAt": null,
+          "schedule": {
+            "id": 4,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "JU",
+            "createdAt": "2024-10-13T23:12:07.103Z",
+            "updatedAt": "2024-10-13T23:12:07.103Z",
+            "deletedAt": null
+          }
+        },
+        {
+          "id": 5,
+          "createdAt": "2024-10-13T23:12:07.143Z",
+          "updatedAt": "2024-10-13T23:12:07.143Z",
+          "deletedAt": null,
+          "schedule": {
+            "id": 5,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "VI",
+            "createdAt": "2024-10-13T23:12:07.103Z",
+            "updatedAt": "2024-10-13T23:12:07.103Z",
+            "deletedAt": null
+          }
+        },
+        {
+          "id": 6,
+          "createdAt": "2024-10-13T23:12:07.143Z",
+          "updatedAt": "2024-10-13T23:12:07.143Z",
+          "deletedAt": null,
+          "schedule": {
+            "id": 7,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "SA",
+            "createdAt": "2024-10-13T23:12:07.131Z",
+            "updatedAt": "2024-10-13T23:12:07.131Z",
+            "deletedAt": null
+          }
+        },
+        {
+          "id": 7,
+          "createdAt": "2024-10-13T23:12:07.143Z",
+          "updatedAt": "2024-10-13T23:12:07.143Z",
+          "deletedAt": null,
+          "schedule": {
+            "id": 6,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "DO",
+            "createdAt": "2024-10-13T23:12:07.130Z",
+            "updatedAt": "2024-10-13T23:12:07.130Z",
+            "deletedAt": null
+          }
+        }
+      ],
+      "status": "today"
     },
-    subject: {
-        name: 'MAT-C1'
+    {
+        "id": 2,
+        "name": "Prueba 2",
+        "payload": "<p>hola 2</p>",
+        "createdAt": "2024-10-13T23:12:07.004Z",
+        "updatedAt": "2024-10-13T23:12:07.004Z",
+        "deletedAt": null,
+        "advertisingType": {
+          "id": 3,
+          "name": "Text",
+          "createdAt": "2024-10-13T23:00:34.130Z",
+          "updatedAt": "2024-10-13T23:00:34.130Z",
+          "deletedAt": null
+        },
+        "advertisingSectors": [
+          {
+            "id": 1,
+            "createdAt": "2024-10-13T23:12:07.029Z",
+            "updatedAt": "2024-10-13T23:12:07.029Z",
+            "deletedAt": null,
+            "sector": {
+              "id": 1,
+              "name": "Malvinas Argentinas",
+              "topic": "ma",
+              "createdAt": "2024-10-13T23:00:34.153Z",
+              "updatedAt": "2024-10-13T23:00:34.153Z",
+              "deletedAt": null,
+              "screens": [
+                {
+                  "id": 1,
+                  "subscription": "1",
+                  "templeteId": "1",
+                  "courseIntervalTime": 2,
+                  "advertisingIntervalTime": 2,
+                  "createdAt": "2024-10-13T23:17:28.757Z",
+                  "updatedAt": "2024-10-13T23:17:28.757Z",
+                  "deletedAt": null
+                }
+              ]
+            }
+          }
+        ],
+        "advertisingSchedules": [
+          {
+            "id": 1,
+            "createdAt": "2024-10-13T23:12:07.141Z",
+            "updatedAt": "2024-10-13T23:12:07.141Z",
+            "deletedAt": null,
+            "schedule": {
+              "id": 1,
+              "startDate": "2024-10-13T03:00:00.000Z",
+              "endDate": "2024-10-31T03:00:00.000Z",
+              "startHour": "2024-10-13T11:00:00.000Z",
+              "endHour": "2024-10-14T01:00:00.000Z",
+              "dayCode": "LU",
+              "createdAt": "2024-10-13T23:12:07.102Z",
+              "updatedAt": "2024-10-13T23:12:07.102Z",
+              "deletedAt": null
+            }
+          },
+          {
+            "id": 2,
+            "createdAt": "2024-10-13T23:12:07.142Z",
+            "updatedAt": "2024-10-13T23:12:07.142Z",
+            "deletedAt": null,
+            "schedule": {
+              "id": 2,
+              "startDate": "2024-10-13T03:00:00.000Z",
+              "endDate": "2024-10-31T03:00:00.000Z",
+              "startHour": "2024-10-13T11:00:00.000Z",
+              "endHour": "2024-10-14T01:00:00.000Z",
+              "dayCode": "MA",
+              "createdAt": "2024-10-13T23:12:07.102Z",
+              "updatedAt": "2024-10-13T23:12:07.102Z",
+              "deletedAt": null
+            }
+          },
+          {
+            "id": 3,
+            "createdAt": "2024-10-13T23:12:07.143Z",
+            "updatedAt": "2024-10-13T23:12:07.143Z",
+            "deletedAt": null,
+            "schedule": {
+              "id": 3,
+              "startDate": "2024-10-13T03:00:00.000Z",
+              "endDate": "2024-10-31T03:00:00.000Z",
+              "startHour": "2024-10-13T11:00:00.000Z",
+              "endHour": "2024-10-14T01:00:00.000Z",
+              "dayCode": "MI",
+              "createdAt": "2024-10-13T23:12:07.102Z",
+              "updatedAt": "2024-10-13T23:12:07.102Z",
+              "deletedAt": null
+            }
+          },
+          {
+            "id": 4,
+            "createdAt": "2024-10-13T23:12:07.143Z",
+            "updatedAt": "2024-10-13T23:12:07.143Z",
+            "deletedAt": null,
+            "schedule": {
+              "id": 4,
+              "startDate": "2024-10-13T03:00:00.000Z",
+              "endDate": "2024-10-31T03:00:00.000Z",
+              "startHour": "2024-10-13T11:00:00.000Z",
+              "endHour": "2024-10-14T01:00:00.000Z",
+              "dayCode": "JU",
+              "createdAt": "2024-10-13T23:12:07.103Z",
+              "updatedAt": "2024-10-13T23:12:07.103Z",
+              "deletedAt": null
+            }
+          },
+          {
+            "id": 5,
+            "createdAt": "2024-10-13T23:12:07.143Z",
+            "updatedAt": "2024-10-13T23:12:07.143Z",
+            "deletedAt": null,
+            "schedule": {
+              "id": 5,
+              "startDate": "2024-10-13T03:00:00.000Z",
+              "endDate": "2024-10-31T03:00:00.000Z",
+              "startHour": "2024-10-13T11:00:00.000Z",
+              "endHour": "2024-10-14T01:00:00.000Z",
+              "dayCode": "VI",
+              "createdAt": "2024-10-13T23:12:07.103Z",
+              "updatedAt": "2024-10-13T23:12:07.103Z",
+              "deletedAt": null
+            }
+          },
+          {
+            "id": 6,
+            "createdAt": "2024-10-13T23:12:07.143Z",
+            "updatedAt": "2024-10-13T23:12:07.143Z",
+            "deletedAt": null,
+            "schedule": {
+              "id": 7,
+              "startDate": "2024-10-13T03:00:00.000Z",
+              "endDate": "2024-10-31T03:00:00.000Z",
+              "startHour": "2024-10-13T11:00:00.000Z",
+              "endHour": "2024-10-14T01:00:00.000Z",
+              "dayCode": "SA",
+              "createdAt": "2024-10-13T23:12:07.131Z",
+              "updatedAt": "2024-10-13T23:12:07.131Z",
+              "deletedAt": null
+            }
+          },
+          {
+            "id": 7,
+            "createdAt": "2024-10-13T23:12:07.143Z",
+            "updatedAt": "2024-10-13T23:12:07.143Z",
+            "deletedAt": null,
+            "schedule": {
+              "id": 6,
+              "startDate": "2024-10-13T03:00:00.000Z",
+              "endDate": "2024-10-31T03:00:00.000Z",
+              "startHour": "2024-10-13T11:00:00.000Z",
+              "endHour": "2024-10-14T01:00:00.000Z",
+              "dayCode": "DO",
+              "createdAt": "2024-10-13T23:12:07.130Z",
+              "updatedAt": "2024-10-13T23:12:07.130Z",
+              "deletedAt": null
+            }
+          }
+        ],
+        "status": "today"
     },
-    classroom: {
-        name: '207'
+    {
+    "id": 3,
+    "name": "Prueba 3",
+    "payload": "<p>hola 3</p>",
+    "createdAt": "2024-10-13T23:12:07.004Z",
+    "updatedAt": "2024-10-13T23:12:07.004Z",
+    "deletedAt": null,
+    "advertisingType": {
+        "id": 3,
+        "name": "Text",
+        "createdAt": "2024-10-13T23:00:34.130Z",
+        "updatedAt": "2024-10-13T23:00:34.130Z",
+        "deletedAt": null
     },
-    schedule: {
-        startDate: '2023-10-06T18:00:00.000Z',
-        endDate: '2023-10-06T21:00:00.000Z',
-    },
-  },
-]
+    "advertisingSectors": [
+        {
+        "id": 1,
+        "createdAt": "2024-10-13T23:12:07.029Z",
+        "updatedAt": "2024-10-13T23:12:07.029Z",
+        "deletedAt": null,
+        "sector": {
+            "id": 1,
+            "name": "Malvinas Argentinas",
+            "topic": "ma",
+            "createdAt": "2024-10-13T23:00:34.153Z",
+            "updatedAt": "2024-10-13T23:00:34.153Z",
+            "deletedAt": null,
+            "screens": [
+            {
+                "id": 1,
+                "subscription": "1",
+                "templeteId": "1",
+                "courseIntervalTime": 2,
+                "advertisingIntervalTime": 2,
+                "createdAt": "2024-10-13T23:17:28.757Z",
+                "updatedAt": "2024-10-13T23:17:28.757Z",
+                "deletedAt": null
+            }
+            ]
+        }
+        }
+    ],
+    "advertisingSchedules": [
+        {
+        "id": 1,
+        "createdAt": "2024-10-13T23:12:07.141Z",
+        "updatedAt": "2024-10-13T23:12:07.141Z",
+        "deletedAt": null,
+        "schedule": {
+            "id": 1,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "LU",
+            "createdAt": "2024-10-13T23:12:07.102Z",
+            "updatedAt": "2024-10-13T23:12:07.102Z",
+            "deletedAt": null
+        }
+        },
+        {
+        "id": 2,
+        "createdAt": "2024-10-13T23:12:07.142Z",
+        "updatedAt": "2024-10-13T23:12:07.142Z",
+        "deletedAt": null,
+        "schedule": {
+            "id": 2,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "MA",
+            "createdAt": "2024-10-13T23:12:07.102Z",
+            "updatedAt": "2024-10-13T23:12:07.102Z",
+            "deletedAt": null
+        }
+        },
+        {
+        "id": 3,
+        "createdAt": "2024-10-13T23:12:07.143Z",
+        "updatedAt": "2024-10-13T23:12:07.143Z",
+        "deletedAt": null,
+        "schedule": {
+            "id": 3,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "MI",
+            "createdAt": "2024-10-13T23:12:07.102Z",
+            "updatedAt": "2024-10-13T23:12:07.102Z",
+            "deletedAt": null
+        }
+        },
+        {
+        "id": 4,
+        "createdAt": "2024-10-13T23:12:07.143Z",
+        "updatedAt": "2024-10-13T23:12:07.143Z",
+        "deletedAt": null,
+        "schedule": {
+            "id": 4,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "JU",
+            "createdAt": "2024-10-13T23:12:07.103Z",
+            "updatedAt": "2024-10-13T23:12:07.103Z",
+            "deletedAt": null
+        }
+        },
+        {
+        "id": 5,
+        "createdAt": "2024-10-13T23:12:07.143Z",
+        "updatedAt": "2024-10-13T23:12:07.143Z",
+        "deletedAt": null,
+        "schedule": {
+            "id": 5,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "VI",
+            "createdAt": "2024-10-13T23:12:07.103Z",
+            "updatedAt": "2024-10-13T23:12:07.103Z",
+            "deletedAt": null
+        }
+        },
+        {
+        "id": 6,
+        "createdAt": "2024-10-13T23:12:07.143Z",
+        "updatedAt": "2024-10-13T23:12:07.143Z",
+        "deletedAt": null,
+        "schedule": {
+            "id": 7,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "SA",
+            "createdAt": "2024-10-13T23:12:07.131Z",
+            "updatedAt": "2024-10-13T23:12:07.131Z",
+            "deletedAt": null
+        }
+        },
+        {
+        "id": 7,
+        "createdAt": "2024-10-13T23:12:07.143Z",
+        "updatedAt": "2024-10-13T23:12:07.143Z",
+        "deletedAt": null,
+        "schedule": {
+            "id": 6,
+            "startDate": "2024-10-13T03:00:00.000Z",
+            "endDate": "2024-10-31T03:00:00.000Z",
+            "startHour": "2024-10-13T11:00:00.000Z",
+            "endHour": "2024-10-14T01:00:00.000Z",
+            "dayCode": "DO",
+            "createdAt": "2024-10-13T23:12:07.130Z",
+            "updatedAt": "2024-10-13T23:12:07.130Z",
+            "deletedAt": null
+        }
+        }
+    ],
+    "status": "today"
+    }
+  ]
 
 const coursesMock = [
   {
@@ -2942,4 +3419,4 @@ const coursesMock = [
   }
 ]
 
-export { schedulesMock, coursesMock }
+export { advertisingsMock, coursesMock }

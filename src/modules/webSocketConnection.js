@@ -17,6 +17,23 @@ function initilizeConnection() {
     webSocket.addEventListener('error', connection.onError);
 }
 
+function finalizeConnection() {
+    if (webSocket) {
+        webSocket.removeEventListener('open', connection.onOpen);
+        webSocket.removeEventListener('message', connection.onMessage);
+        webSocket.removeEventListener('error', connection.onError);
+
+        if (webSocket.readyState === WebSocket.OPEN) {
+            webSocket.close(); // Gracefully close the connection
+        }
+        
+        webSocket = null; // Reset the WebSocket instance
+        console.info('WebSocket connection closed and cleaned up.');
+    } else {
+        console.warn('No WebSocket connection to finalize.');
+    }
+}
+
 const sendMessage = (message, screenId) => {
     webSocket.send(
         JSON.stringify({
@@ -26,4 +43,4 @@ const sendMessage = (message, screenId) => {
     );
 }
 
-export { connection, initilizeConnection, sendMessage };
+export { connection, initilizeConnection, finalizeConnection, sendMessage };
