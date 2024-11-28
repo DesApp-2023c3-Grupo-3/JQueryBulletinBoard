@@ -1,11 +1,13 @@
+import env from './modules/env.js'
 import { connection, initilizeConnection, finalizeConnection, sendMessage } from "./modules/webSocketConnection.js";
 import { formattedTime, getCurrentTime, getUrlParameter, fetch, getYouTubeVideoId } from "./modules/utils.js";
 import { initializeCarousel, updateCarousel, removeCarouselItem } from "./modules/carousel.js"
 import { coursesMock, advertisingsMock } from "./mock/mock.js";
 
-const HOSTNAME = 'http://186.13.152.219:4000'
-const ADVERTISINGS_ENDPOINT = 'http://186.13.152.219:4000/advertising/screen'
-const COURSES_ENDPOINT = 'http://186.13.152.219:4000/course/sector'
+const baseUrl = `${env.SSL}://${env.SERVER_HOST}:${env.SERVER_PORT}`
+const HOSTNAME = `${baseUrl}/messaging`;
+const ADVERTISINGS_ENDPOINT = `${baseUrl}/advertising/screen`
+const COURSES_ENDPOINT = `${baseUrl}/course/sector`
 const SCREEN_ID = getUrlParameter('id')
 let sectorData = null
 let advertisingData = []
